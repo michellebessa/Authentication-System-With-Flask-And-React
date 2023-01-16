@@ -2,44 +2,28 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { store, actions } = useContext(Context); //importing in line 1
   const [email, setEmail] = useState(""); //react hook
   const [password, setPassword] = useState(""); //react hook
+  const token = sessionStorage.getItem("token");
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    const opts = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    };
-
-    fetch(
-      "https://3001-4geeksacade-reactflaskh-ldpn8txkwt9.ws-us82.gitpod.io/api/token",
-      opts
-    )
-      .then((resp) => {
-        if (resp.status === 200) return resp.json();
-        else alert("There has been some error");
-      })
-      .then((data) => {
-        console.log("This came from the backend", data);
-        sessionStorage.setItem("token", data.access_token);
-      })
-      .catch((error) => {
-        console.error("There was an error", error);
-      });
+    actions.login(email, password).then(() => {
+      navigate.push("/")
+    })
   };
 
   return (
     <div className="text-center mt-5">
       <h1>Login</h1>
+      {token && token != "" && token != undefined
+        ? ("You are logged in with this token" + token
+        
+        ) : (
       <div>
         <input
           type="text"
@@ -55,6 +39,7 @@ export const Login = () => {
         />
         <button onClick={handleClick}>Login</button>
       </div>
+        )}
     </div>
   );
 };
