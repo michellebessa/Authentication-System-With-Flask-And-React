@@ -40,14 +40,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           if (resp.status !== 200) {
             alert("There has been some error");
-            alert("There has been some error");
             return false;
           }
 
           const data = await resp.json();
           console.log("this came from the backend", data);
           sessionStorage.setItem("token", data.access_token);
+          setStore({ token: data.access_token})
           return true;
+          
         } catch (error) {
           console.error("There has been an error logging in");
         }
