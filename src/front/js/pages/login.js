@@ -12,9 +12,9 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    actions.login(email, password).then(() => {
-      navigate.push("/")
-    })
+    actions.login(email, password); //.then(() => {
+      //navigate.push("/")
+    //})
   };
 
   return (
