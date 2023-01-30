@@ -11,34 +11,35 @@ export const Login = () => {
   const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
 
+  console.log("This is your token", store.token)
   const handleClick = () => {
-    actions.login(email, password); //.then(() => {
-      //navigate.push("/")
-    //})
+    actions.login(email, password);
   };
+
+  if(store.token && store.token != "" && store.token != undefined) navigate("/");
 
   return (
     <div className="text-center mt-5">
       <h1>Login</h1>
-      {token && token != "" && token != undefined
-        ? ("You are logged in with this token" + token
-        
+      {store.token && store.token != "" && store.token != undefined
+        ? ("You are logged in with this token" + store.token
+
         ) : (
-      <div>
-        <input
-          type="text"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleClick}>Login</button>
-      </div>
+          <div>
+            <input
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={handleClick}>Login</button>
+          </div>
         )}
     </div>
   );
