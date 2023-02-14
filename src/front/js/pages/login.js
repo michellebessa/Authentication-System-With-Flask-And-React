@@ -5,7 +5,7 @@ import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const { store, actions } = useContext(Context); //importing in line 1
+  const { store, actions } = useContext(Context); //importing in line 2
   const [email, setEmail] = useState(""); //react hook
   const [password, setPassword] = useState(""); //react hook
   const token = sessionStorage.getItem("token");
